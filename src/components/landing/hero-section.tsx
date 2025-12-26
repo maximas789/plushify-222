@@ -1,10 +1,38 @@
 "use client";
 
+import { useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 export function HeroSection() {
+  const [sliderPosition, setSliderPosition] = useState(50);
+  const [isDragging, setIsDragging] = useState(false);
+
+  const handleMove = (clientX: number, rect: DOMRect) => {
+    const x = Math.max(0, Math.min(clientX - rect.left, rect.width));
+    const percent = Math.max(0, Math.min((x / rect.width) * 100, 100));
+    setSliderPosition(percent);
+  };
+
+  const handleMouseDown = () => setIsDragging(true);
+  const handleMouseUp = () => setIsDragging(false);
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!isDragging) return;
+    const rect = e.currentTarget.getBoundingClientRect();
+    handleMove(e.clientX, rect);
+  };
+
+  const handleTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
+    if (!isDragging) return;
+    const touch = e.touches[0];
+    if (!touch) return;
+    const rect = e.currentTarget.getBoundingClientRect();
+    handleMove(touch.clientX, rect);
+  };
+
   return (
     <section className="relative overflow-hidden bg-gradient-to-b from-pink-50 via-purple-50 to-white dark:from-pink-950/20 dark:via-purple-950/20 dark:to-background">
       {/* Background decorations */}
@@ -70,38 +98,73 @@ export function HeroSection() {
             </div>
           </div>
 
-          {/* Right: Hero Image/Illustration */}
+          {/* Right: Before/After Comparison */}
           <div className="relative flex justify-center items-center">
-            <div className="relative w-full max-w-lg aspect-square">
+            <div className="relative w-full max-w-lg">
               {/* Decorative circles */}
               <div className="absolute inset-0 bg-gradient-to-br from-pink-200 to-purple-200 dark:from-pink-900/30 dark:to-purple-900/30 rounded-full blur-2xl animate-bounce-gentle" />
-              
-              {/* Main illustration */}
-              <div className="relative bg-white dark:bg-gray-800 rounded-3xl shadow-2xl shadow-pink-500/20 p-8 transform hover:scale-105 transition-transform duration-300">
-                <div className="aspect-square rounded-2xl bg-gradient-to-br from-pink-100 to-purple-100 dark:from-pink-900/20 dark:to-purple-900/20 flex items-center justify-center overflow-hidden">
-                  <svg
-                    className="w-3/4 h-3/4 animate-float"
-                    viewBox="0 0 200 200"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <circle cx="100" cy="100" r="80" fill="#F472B6" />
-                    <circle cx="75" cy="90" r="12" fill="#1F2937" />
-                    <circle cx="125" cy="90" r="12" fill="#1F2937" />
-                    <path
-                      d="M85 120 Q100 140 115 120"
-                      stroke="#1F2937"
-                      strokeWidth="4"
-                      fill="none"
-                      strokeLinecap="round"
+
+              {/* Before/After Slider */}
+              <div className="relative bg-white dark:bg-gray-800 rounded-3xl shadow-2xl shadow-pink-500/20 p-4 sm:p-6 lg:p-8">
+                <div
+                  className="relative aspect-[4/3] rounded-2xl overflow-hidden cursor-ew-resize select-none"
+                  onMouseDown={handleMouseDown}
+                  onMouseUp={handleMouseUp}
+                  onMouseLeave={handleMouseUp}
+                  onMouseMove={handleMouseMove}
+                  onTouchStart={handleMouseDown}
+                  onTouchEnd={handleMouseUp}
+                  onTouchMove={handleTouchMove}
+                >
+                  {/* After image (full) */}
+                  <div className="absolute inset-0">
+                    <Image
+                      src="/example/after.png"
+                      alt="After - Plushie version"
+                      fill
+                      className="object-cover"
+                      priority
                     />
-                    <circle cx="60" cy="100" r="15" fill="#FBCFE8" />
-                    <circle cx="140" cy="100" r="15" fill="#FBCFE8" />
-                  </svg>
+                    <div className="absolute top-4 right-4 bg-purple-500 text-white px-3 py-1 rounded-full text-xs font-semibold shadow-lg">
+                      After ✨
+                    </div>
+                  </div>
+
+                  {/* Before image (clipped) */}
+                  <div
+                    className="absolute inset-0 overflow-hidden"
+                    style={{ clipPath: `inset(0 ${100 - sliderPosition}% 0 0)` }}
+                  >
+                    <Image
+                      src="/example/before.jpg"
+                      alt="Before - Original photo"
+                      fill
+                      className="object-cover"
+                      priority
+                    />
+                    <div className="absolute top-4 left-4 bg-pink-500 text-white px-3 py-1 rounded-full text-xs font-semibold shadow-lg">
+                      Before 📸
+                    </div>
+                  </div>
+
+                  {/* Slider line and handle */}
+                  <div
+                    className="absolute top-0 bottom-0 w-1 bg-white shadow-lg"
+                    style={{ left: `${sliderPosition}%` }}
+                  >
+                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-8 h-8 bg-white rounded-full shadow-lg flex items-center justify-center border-2 border-pink-400">
+                      <div className="flex gap-0.5">
+                        <div className="w-0.5 h-4 bg-pink-400 rounded-full" />
+                        <div className="w-0.5 h-4 bg-pink-400 rounded-full" />
+                      </div>
+                    </div>
+                  </div>
                 </div>
+
+                {/* Helper text */}
                 <div className="mt-4 text-center">
                   <p className="text-sm font-medium text-gray-600 dark:text-gray-400">
-                    ✨ Your photo becomes this!
+                    ← Drag to compare →
                   </p>
                 </div>
               </div>
