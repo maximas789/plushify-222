@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Mail, Calendar, User, Shield, ArrowLeft, Lock, Smartphone } from "lucide-react";
+import { Mail, Calendar, User, Shield, ArrowLeft, Lock, Smartphone, Sparkles, CreditCard } from "lucide-react";
 import { toast } from "sonner";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
@@ -24,29 +24,15 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
-import { useSession } from "@/lib/auth-client";
+import { mockUser } from "@/lib/mock-data/user";
 
 export default function ProfilePage() {
-  const { data: session, isPending } = useSession();
   const router = useRouter();
   const [editProfileOpen, setEditProfileOpen] = useState(false);
   const [securityOpen, setSecurityOpen] = useState(false);
   const [emailPrefsOpen, setEmailPrefsOpen] = useState(false);
 
-  if (isPending) {
-    return (
-      <div className="flex items-center justify-center min-h-screen">
-        <div>Loading...</div>
-      </div>
-    );
-  }
-
-  if (!session) {
-    router.push("/");
-    return null;
-  }
-
-  const user = session.user;
+  const user = mockUser;
   const createdDate = user.createdAt
     ? new Date(user.createdAt).toLocaleDateString("en-US", {
         year: "numeric",
@@ -55,9 +41,32 @@ export default function ProfilePage() {
       })
     : null;
 
+  const mockRecentActivity = [
+    {
+      id: 1,
+      action: "Generated Plushie",
+      description: "Created a Kawaii-style plushie from uploaded photo",
+      time: "2 hours ago",
+      status: "completed",
+    },
+    {
+      id: 2,
+      action: "Credits Purchased",
+      description: "Purchased 100 credits (Pro plan)",
+      time: "1 day ago",
+      status: "completed",
+    },
+    {
+      id: 3,
+      action: "Saved to Gallery",
+      description: "Added plushie to favorites",
+      time: "3 days ago",
+      status: "completed",
+    },
+  ];
+
   const handleEditProfileSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // In a real app, this would call an API to update the user profile
     toast.info("Profile updates require backend implementation");
     setEditProfileOpen(false);
   };
@@ -84,7 +93,7 @@ export default function ProfilePage() {
             <div className="flex items-center space-x-4">
               <Avatar className="h-20 w-20">
                 <AvatarImage
-                  src={user.image || ""}
+                  src={user.avatar || ""}
                   alt={user.name || "User"}
                   referrerPolicy="no-referrer"
                 />
@@ -97,15 +106,13 @@ export default function ProfilePage() {
                 <div className="flex items-center gap-2 text-muted-foreground">
                   <Mail className="h-4 w-4" />
                   <span>{user.email}</span>
-                  {user.emailVerified && (
-                    <Badge
-                      variant="outline"
-                      className="text-green-600 border-green-600"
-                    >
-                      <Shield className="h-3 w-3 mr-1" />
-                      Verified
-                    </Badge>
-                  )}
+                  <Badge
+                    variant="outline"
+                    className="text-green-600 border-green-600"
+                  >
+                    <Shield className="h-3 w-3 mr-1" />
+                    Verified
+                  </Badge>
                 </div>
                 {createdDate && (
                   <div className="flex items-center gap-2 text-muted-foreground text-sm">
@@ -116,6 +123,37 @@ export default function ProfilePage() {
               </div>
             </div>
           </CardHeader>
+        </Card>
+
+        {/* Credits Overview */}
+        <Card className="bg-gradient-to-r from-pink-50 to-purple-50 dark:from-pink-950/10 dark:to-purple-950/10 border-2 border-pink-200 dark:border-pink-900/30">
+          <CardHeader>
+            <div className="flex items-center justify-between">
+              <div>
+                <CardTitle className="flex items-center gap-2">
+                  <Sparkles className="h-5 w-5 text-pink-600 dark:text-pink-400" />
+                  Available Credits
+                </CardTitle>
+                <CardDescription>
+                  Use credits to generate adorable plushies
+                </CardDescription>
+              </div>
+              <div className="text-right">
+                <div className="text-4xl font-bold text-pink-600 dark:text-pink-400">
+                  {user.credits}
+                </div>
+                <p className="text-sm text-muted-foreground">credits remaining</p>
+              </div>
+            </div>
+          </CardHeader>
+          <CardContent>
+            <Button asChild className="w-full bg-gradient-to-r from-pink-500 to-purple-500 hover:from-pink-600 hover:to-purple-600">
+              <a href="/pricing">
+                <CreditCard className="mr-2 h-4 w-4" />
+                Purchase More Credits
+              </a>
+            </Button>
+          </CardContent>
         </Card>
 
         {/* Account Information */}
@@ -140,14 +178,12 @@ export default function ProfilePage() {
                 </label>
                 <div className="p-3 border rounded-md bg-muted/10 flex items-center justify-between">
                   <span>{user.email}</span>
-                  {user.emailVerified && (
-                    <Badge
-                      variant="outline"
-                      className="text-green-600 border-green-600"
-                    >
-                      Verified
-                    </Badge>
-                  )}
+                  <Badge
+                    variant="outline"
+                    className="text-green-600 border-green-600"
+                  >
+                    Verified
+                  </Badge>
                 </div>
               </div>
             </div>
@@ -164,9 +200,7 @@ export default function ProfilePage() {
                       Email address verification status
                     </p>
                   </div>
-                  <Badge variant={user.emailVerified ? "default" : "secondary"}>
-                    {user.emailVerified ? "Verified" : "Unverified"}
-                  </Badge>
+                  <Badge variant="default">Verified</Badge>
                 </div>
                 <div className="flex items-center justify-between p-4 border rounded-lg">
                   <div className="space-y-1">
@@ -187,26 +221,36 @@ export default function ProfilePage() {
           <CardHeader>
             <CardTitle>Recent Activity</CardTitle>
             <CardDescription>
-              Your recent account activity and sessions
+              Your recent account activity and generations
             </CardDescription>
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
-              <div className="flex items-center justify-between p-4 border rounded-lg">
-                <div className="flex items-center space-x-3">
-                  <div className="h-2 w-2 bg-green-500 rounded-full"></div>
-                  <div>
-                    <p className="font-medium">Current Session</p>
-                    <p className="text-sm text-muted-foreground">Active now</p>
+              {mockRecentActivity.map((activity) => (
+                <div
+                  key={activity.id}
+                  className="flex items-center justify-between p-4 border rounded-lg"
+                >
+                  <div className="flex items-center space-x-3">
+                    <div className="h-2 w-2 bg-green-500 rounded-full"></div>
+                    <div>
+                      <p className="font-medium">{activity.action}</p>
+                      <p className="text-sm text-muted-foreground">
+                        {activity.description}
+                      </p>
+                    </div>
+                  </div>
+                  <div className="text-right">
+                    <p className="text-sm text-muted-foreground">{activity.time}</p>
+                    <Badge
+                      variant="outline"
+                      className="text-green-600 border-green-600"
+                    >
+                      {activity.status}
+                    </Badge>
                   </div>
                 </div>
-                <Badge
-                  variant="outline"
-                  className="text-green-600 border-green-600"
-                >
-                  Active
-                </Badge>
-              </div>
+              ))}
             </div>
           </CardContent>
         </Card>
@@ -294,7 +338,7 @@ export default function ProfilePage() {
                 className="bg-muted"
               />
               <p className="text-xs text-muted-foreground">
-                Email cannot be changed for OAuth accounts
+                Email cannot be changed
               </p>
             </div>
             <div className="flex justify-end gap-2 pt-4">
@@ -327,15 +371,11 @@ export default function ProfilePage() {
                 <div>
                   <p className="font-medium">Password</p>
                   <p className="text-sm text-muted-foreground">
-                    {user.email?.includes("@gmail")
-                      ? "Managed by Google"
-                      : "Set a password for your account"}
+                    Set a password for your account
                   </p>
                 </div>
               </div>
-              <Badge variant="outline">
-                {user.email?.includes("@gmail") ? "OAuth" : "Not Set"}
-              </Badge>
+              <Badge variant="outline">Not Set</Badge>
             </div>
 
             <div className="flex items-center justify-between p-4 border rounded-lg">

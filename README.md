@@ -1,91 +1,62 @@
-# Agentic Coding Boilerplate
+# Plushify - Turn Your Photos into Adorable Plushies
 
-A complete agentic coding boilerplate with authentication, PostgreSQL database, AI chat functionality, and modern UI components - perfect for building AI-powered applications and autonomous agents.
+A cute and playful SaaS application that allows users to upload images of themselves, friends, family, or pets and convert them into adorable plushie designs using AI.
 
-## 🚀 Features
+## 🎨 Features
 
-- **🔐 Authentication**: Better Auth with Google OAuth integration
-- **🗃️ Database**: Drizzle ORM with PostgreSQL
-- **🤖 AI Integration**: Vercel AI SDK with OpenRouter (access to 100+ AI models)
-- **📁 File Storage**: Automatic local/Vercel Blob storage with seamless switching
-- **🎨 UI Components**: shadcn/ui with Tailwind CSS
-- **⚡ Modern Stack**: Next.js 16, React 19, TypeScript
-- **📱 Responsive**: Mobile-first design approach
+- **🖼️ Image Upload & Generation**: Drag & drop or file picker upload with style and size customization
+- **🎭 Multiple Styles**: Choose from Kawaii, Cartoon, Realistic, or Vintage plushie styles
+- **📐 Size Options**: Small, Medium, or Large plushie sizes
+- **🖼️ Before/After Preview**: Interactive slider to compare original and generated images
+- **🖼️ Gallery Management**: View, filter, sort, and manage your generated plushies
+- **❤️ Favorites System**: Mark plushies as favorites for easy access
+- **💾 Persistent Storage**: Gallery data saved in localStorage
+- **📱 Responsive Design**: Mobile-first design that works on all devices
+- **🌙 Dark Mode**: Full support for light and dark themes
+- **🎯 Credit-Based Pricing**: Three pricing tiers (Basic, Pro, Elite) with credit packages
+- **📚 Documentation**: User guides and FAQs for easy onboarding
+- **⚖️ Legal Pages**: Privacy Policy, Terms of Service, and Cookie Policy
 
-## 🎥 Video Tutorial
+## 🚀 Tech Stack
 
-Watch the complete walkthrough of this agentic coding template:
-
-[![Agentic Coding Boilerplate Tutorial](https://img.youtube.com/vi/JQ86N3WOAh4/maxresdefault.jpg)](https://youtu.be/JQ86N3WOAh4)
-
-<a href="https://youtu.be/JQ86N3WOAh4" target="_blank" rel="noopener noreferrer">🔗 Watch on YouTube</a>
-
-## ☕ Support This Project
-
-If this boilerplate helped you build something awesome, consider buying me a coffee!
-
-[![Buy me a coffee](https://img.shields.io/badge/Buy_Me_A_Coffee-FFDD00?style=for-the-badge&logo=buy-me-a-coffee&logoColor=black)](https://www.buymeacoffee.com/leonvanzyl)
+- **Frontend**: Next.js 16, React 19, TypeScript
+- **UI Components**: shadcn/ui with Tailwind CSS
+- **Styling**: Tailwind CSS with custom color tokens
+- **Icons**: Lucide React
+- **Storage**: localStorage for gallery persistence
+- **Authentication**: Mock authentication (no real auth in UI phase)
 
 ## 📋 Prerequisites
 
 Before you begin, ensure you have the following installed on your machine:
 
-- **Node.js**: Version 18.0 or higher (<a href="https://nodejs.org/" target="_blank">Download here</a>)
-- **Git**: For cloning the repository (<a href="https://git-scm.com/" target="_blank">Download here</a>)
-- **PostgreSQL**: Either locally installed or access to a hosted service like Vercel Postgres
+- **Node.js**: Version 18.0 or higher ([Download here](https://nodejs.org/))
+- **Git**: For cloning the repository ([Download here](https://git-scm.com/))
+- **Package Manager**: pnpm, npm, or yarn
 
 ## 🛠️ Quick Setup
 
-### Automated Setup (Recommended)
-
-Get started with a single command:
-
-```bash
-npx create-agentic-app@latest my-app
-cd my-app
-```
-
-Or create in the current directory:
-
-```bash
-npx create-agentic-app@latest .
-```
-
-The CLI will:
-- Copy all boilerplate files
-- Install dependencies with your preferred package manager (pnpm/npm/yarn)
-- Set up your environment file
-
-**Next steps after running the command:**
-
-1. Update `.env` with your API keys and database credentials
-2. Start the database: `docker compose up -d`
-3. Run migrations: `npm run db:migrate`
-4. Start dev server: `npm run dev`
-
-### Manual Setup (Alternative)
-
-If you prefer to set up manually:
-
-**1. Clone or Download the Repository**
+### 1. Clone or Download the Repository
 
 **Option A: Clone with Git**
 
 ```bash
-git clone https://github.com/leonvanzyl/agentic-coding-starter-kit.git
-cd agentic-coding-starter-kit
+git clone <your-repo-url>
+cd plushify-222
 ```
 
 **Option B: Download ZIP**
 Download the repository as a ZIP file and extract it to your desired location.
 
-**2. Install Dependencies**
+### 2. Install Dependencies
 
 ```bash
 npm install
+# or
+pnpm install
 ```
 
-**3. Environment Setup**
+### 3. Environment Setup
 
 Copy the example environment file:
 
@@ -96,120 +67,146 @@ cp env.example .env
 Fill in your environment variables in the `.env` file:
 
 ```env
-# Database
-POSTGRES_URL="postgresql://username:password@localhost:5432/your_database_name"
+# Database (optional for UI-only implementation)
+POSTGRES_URL="postgresql://username:password@localhost:5432/plushify"
 
-# Authentication - Better Auth
+# Authentication (optional for UI-only implementation)
 BETTER_AUTH_SECRET="your-random-32-character-secret-key-here"
 
-# Google OAuth (Get from Google Cloud Console)
+# Google OAuth (optional for UI-only implementation)
 GOOGLE_CLIENT_ID="your-google-client-id"
 GOOGLE_CLIENT_SECRET="your-google-client-secret"
 
-# AI Integration via OpenRouter (Optional - for chat functionality)
-# Get your API key from: https://openrouter.ai/settings/keys
-# View available models at: https://openrouter.ai/models
-OPENROUTER_API_KEY="sk-or-v1-your-openrouter-api-key-here"
-OPENROUTER_MODEL="openai/gpt-5-mini"
-
-# App URL (for production deployments)
+# App URL
 NEXT_PUBLIC_APP_URL="http://localhost:3000"
-
-# File Storage (Optional - for file upload functionality)
-# Leave empty to use local storage (public/uploads/) in development
-# Set to enable Vercel Blob storage in production
-BLOB_READ_WRITE_TOKEN=""
 ```
 
-**4. Database Setup**
-
-Generate and run database migrations:
-
-```bash
-npm run db:generate
-npm run db:migrate
-```
-
-**5. Start the Development Server**
+### 4. Start the Development Server
 
 ```bash
 npm run dev
+# or
+pnpm dev
 ```
 
 Your application will be available at [http://localhost:3000](http://localhost:3000)
-
-## ⚙️ Service Configuration
-
-### PostgreSQL Database on Vercel
-
-1. Go to <a href="https://vercel.com/dashboard" target="_blank">Vercel Dashboard</a>
-2. Navigate to the **Storage** tab
-3. Click **Create** → **Postgres**
-4. Choose your database name and region
-5. Copy the `POSTGRES_URL` from the `.env.local` tab
-6. Add it to your `.env` file
-
-### Google OAuth Credentials
-
-1. Go to <a href="https://console.cloud.google.com/" target="_blank">Google Cloud Console</a>
-2. Create a new project or select an existing one
-3. Navigate to **Credentials** → **Create Credentials** → **OAuth 2.0 Client ID**
-4. Set application type to **Web application**
-5. Add authorized redirect URIs:
-   - `http://localhost:3000/api/auth/callback/google` (development)
-   - `https://yourdomain.com/api/auth/callback/google` (production)
-6. Copy the **Client ID** and **Client Secret** to your `.env` file
-
-### OpenRouter API Key
-
-1. Go to <a href="https://openrouter.ai/" target="_blank">OpenRouter</a>
-2. Sign up or log in to your account
-3. Navigate to **Settings** → **Keys** or visit <a href="https://openrouter.ai/settings/keys" target="_blank">Keys Settings</a>
-4. Click **Create Key** and give it a name
-5. Copy the API key and add it to your `.env` file as `OPENROUTER_API_KEY`
-6. Browse available models at <a href="https://openrouter.ai/models" target="_blank">OpenRouter Models</a>
-
-### File Storage Configuration
-
-The project includes a flexible storage abstraction that automatically switches between local filesystem storage (development) and Vercel Blob storage (production).
-
-**For Development (Local Storage):**
-- Leave `BLOB_READ_WRITE_TOKEN` empty or unset in your `.env` file
-- Files are automatically stored in `public/uploads/`
-- Files are served at `/uploads/` URL path
-- No external service or configuration needed
-
-**For Production (Vercel Blob):**
-1. Go to <a href="https://vercel.com/dashboard" target="_blank">Vercel Dashboard</a>
-2. Navigate to your project → **Storage** tab
-3. Click **Create** → **Blob**
-4. Copy the `BLOB_READ_WRITE_TOKEN` from the integration
-5. Add it to your production environment variables
-
-The storage service automatically detects which backend to use based on the presence of the `BLOB_READ_WRITE_TOKEN` environment variable.
 
 ## 🗂️ Project Structure
 
 ```
 src/
-├── app/                    # Next.js app directory
-│   ├── api/               # API routes
-│   │   ├── auth/          # Authentication endpoints
-│   │   └── chat/          # AI chat endpoint
-│   ├── chat/              # AI chat page
-│   ├── dashboard/         # User dashboard
-│   └── page.tsx           # Home page
-├── components/            # React components
-│   ├── auth/             # Authentication components
-│   └── ui/               # shadcn/ui components
-└── lib/                  # Utilities and configurations
-    ├── auth.ts           # Better Auth configuration
-    ├── auth-client.ts    # Client-side auth utilities
-    ├── db.ts             # Database connection
-    ├── schema.ts         # Database schema
-    ├── storage.ts        # File storage abstraction
-    └── utils.ts          # General utilities
+├── app/                          # Next.js app directory
+│   ├── api/                      # API routes (for future backend)
+│   ├── dashboard/                # Plushie generation interface
+│   ├── gallery/                  # User's plushie gallery
+│   ├── pricing/                  # Pricing page
+│   ├── docs/                     # User guide
+│   ├── faq/                      # FAQ page
+│   ├── privacy/                  # Privacy policy
+│   ├── terms/                    # Terms of service
+│   ├── cookies/                  # Cookie policy
+│   ├── profile/                  # User profile (mock data)
+│   ├── layout.tsx                # Root layout
+│   ├── page.tsx                  # Landing page
+│   └── globals.css               # Global styles and color tokens
+├── components/
+│   ├── auth/                     # Authentication components
+│   ├── docs/                     # Documentation components
+│   ├── gallery/                  # Gallery components
+│   ├── landing/                  # Landing page components
+│   ├── plushie/                  # Plushie generation components
+│   ├── shared/                   # Shared utility components
+│   └── ui/                       # shadcn/ui components
+├── hooks/
+│   ├── use-image-upload.ts       # Image upload hook
+│   └── use-plushie-gallery.ts   # Gallery management hook
+└── lib/
+    ├── mock-data/                # Mock data files
+    │   ├── user.ts              # Mock user data
+    │   ├── plushies.ts          # Mock plushies data
+    │   ├── gallery-samples.ts   # Gallery sample images
+    │   └── testimonials.ts      # Mock testimonials
+    └── mock-generation.ts       # Mock generation utility
 ```
+
+## 🎨 Design System
+
+### Color Tokens
+
+The application uses a cute and playful color scheme defined in `src/app/globals.css`:
+
+- **Primary Pink**: `oklch(0.65 0.20 320)` - Soft pink for primary actions
+- **Secondary Purple**: `oklch(0.85 0.10 280)` - Light purple for secondary elements
+- **Accent Yellow**: `oklch(0.90 0.12 90)` - Soft yellow for accents
+- **Border Radius**: `1rem` - Rounded corners for softer feel
+
+### Animations
+
+Custom animations for a playful user experience:
+
+- **bounce-gentle**: Subtle bouncing effect
+- **float**: Floating animation for decorative elements
+- **shimmer**: Shimmer effect for loading states
+
+## 📖 Pages Overview
+
+### Landing Page (`/`)
+- Hero section with gradient headline and CTA buttons
+- Feature showcase with 4+ key features
+- Demo carousel rotating through example plushie generations
+- User testimonials section
+- Pricing section with 3 tiers
+- Fully responsive with dark mode support
+
+### Dashboard (`/dashboard`)
+- Drag & drop image upload zone
+- File picker as fallback upload method
+- Style selector (Kawaii, Cartoon, Realistic, Vintage)
+- Size selector (Small, Medium, Large)
+- Animated progress indicator during generation
+- Before/after preview with interactive slider
+- Download, share, and save to gallery options
+
+### Gallery (`/gallery`)
+- Responsive grid layout (1/2/3/4 columns)
+- Filter controls (All, Favorites, By Style)
+- Sort controls (Newest, Oldest)
+- Before/after comparison cards
+- Quick actions (download, share, delete, favorite)
+- Empty state when no plushies exist
+- Data persists in localStorage
+
+### Pricing (`/pricing`)
+- Three pricing tiers:
+  - **Basic**: 30 credits for $9
+  - **Pro**: 100 credits for $19 (Most Popular)
+  - **Elite**: 200 credits for $29
+- Feature comparison table
+- FAQ section specific to pricing
+- CTA buttons (UI-only, no payment processing)
+
+### Documentation (`/docs`)
+- User guide with step-by-step instructions
+- Getting Started section
+- Uploading Images guide
+- Generation Options explanation
+- Gallery Management tips
+
+### FAQ (`/faq`)
+- Expandable accordion with 8-10 FAQ items
+- Topics: How to upload, generation process, credits, file formats
+- Organized by category
+
+### Legal Pages
+- **Privacy Policy** (`/privacy`): Data handling and privacy practices
+- **Terms of Service** (`/terms`): Terms and conditions
+- **Cookie Policy** (`/cookies`): Cookie usage explanation
+
+### Profile (`/profile`)
+- Mock user profile display
+- User information (name, email, avatar)
+- Mock credit balance (50 credits)
+- Recent activity section
 
 ## 🔧 Available Scripts
 
@@ -218,19 +215,58 @@ npm run dev          # Start development server with Turbopack
 npm run build        # Build for production
 npm run start        # Start production server
 npm run lint         # Run ESLint
-npm run db:generate  # Generate database migrations
-npm run db:migrate   # Run database migrations
-npm run db:push      # Push schema changes to database
-npm run db:studio    # Open Drizzle Studio (database GUI)
-npm run db:dev       # Push schema for development
-npm run db:reset     # Reset database (drop all tables)
+npm run typecheck    # Run TypeScript type checking
 ```
 
-## 📖 Pages Overview
+## 🎭 Mock Data Approach
 
-- **Home (`/`)**: Landing page with setup instructions and features overview
-- **Dashboard (`/dashboard`)**: Protected user dashboard with profile information
-- **Chat (`/chat`)**: AI-powered chat interface using OpenRouter (requires authentication)
+This implementation uses mock data to simulate a complete user experience without backend integration:
+
+### Mock User
+- Name: Sarah Johnson
+- Email: sarah@example.com
+- Avatar: Default avatar image
+- Credits: 50 (for UI display)
+- Location: `src/lib/mock-data/user.ts`
+
+### Mock Plushies
+- 6+ sample before/after image pairs
+- Variety of subjects (people, pets, objects)
+- Different styles represented (Kawaii, Cartoon, Realistic, Vintage)
+- Location: `src/lib/mock-data/plushies.ts`
+
+### Mock Testimonials
+- 5+ user testimonials
+- Include name, avatar, and review text
+- Location: `src/lib/mock-data/testimonials.ts`
+
+### Mock Generation
+- Simulates AI generation with 3-5 second delay
+- Returns random plushie from gallery samples
+- Location: `src/lib/mock-generation.ts`
+
+## 💾 localStorage Schema
+
+Gallery data is persisted in localStorage under the key `plushify_gallery`:
+
+```typescript
+interface Plushie {
+  id: string;
+  userId: string;
+  originalImage: string;
+  generatedImage: string;
+  style: 'Kawaii' | 'Cartoon' | 'Realistic' | 'Vintage';
+  size: 'Small' | 'Medium' | 'Large';
+  createdAt: string;
+  isFavorite: boolean;
+}
+```
+
+The gallery data is automatically:
+- Saved when a new plushie is generated
+- Updated when plushies are deleted or favorited
+- Loaded on page mount to restore user's gallery
+- Persisted across browser sessions
 
 ## 🚀 Deployment
 
@@ -255,165 +291,192 @@ npm run db:reset     # Reset database (drop all tables)
 
 Ensure these are set in your production environment:
 
-- `POSTGRES_URL` - Production PostgreSQL connection string
-- `BETTER_AUTH_SECRET` - Secure random 32+ character string
-- `GOOGLE_CLIENT_ID` - Google OAuth Client ID
-- `GOOGLE_CLIENT_SECRET` - Google OAuth Client Secret
-- `OPENROUTER_API_KEY` - OpenRouter API key (optional, for AI chat functionality)
-- `OPENROUTER_MODEL` - Model name from OpenRouter (optional, defaults to openai/gpt-5-mini)
 - `NEXT_PUBLIC_APP_URL` - Your production domain
-- `BLOB_READ_WRITE_TOKEN` - Vercel Blob token (optional, uses local storage if not set)
+- `POSTGRES_URL` - Production PostgreSQL connection string (for future backend)
+- `BETTER_AUTH_SECRET` - Secure random 32+ character string (for future auth)
+- `GOOGLE_CLIENT_ID` - Google OAuth Client ID (for future auth)
+- `GOOGLE_CLIENT_SECRET` - Google OAuth Client Secret (for future auth)
 
-## 🎥 Tutorial Video
+## 🔄 Backend Integration Guide
 
-Watch my comprehensive tutorial on how to use this agentic coding boilerplate to build AI-powered applications:
+This UI implementation is ready for backend integration. Here's what needs to be connected:
 
-<a href="https://youtu.be/JQ86N3WOAh4" target="_blank" rel="noopener noreferrer">📺 YouTube Tutorial - Building with Agentic Coding Boilerplate</a>
+### Required API Endpoints
 
-## 🤖 Claude Code Commands
+1. **User Authentication**
+   - `POST /api/auth/sign-in` - Sign in user
+   - `POST /api/auth/sign-up` - Sign up new user
+   - `GET /api/auth/session` - Get current session
+   - `POST /api/auth/sign-out` - Sign out user
 
-This project includes custom slash commands for [Claude Code](https://claude.ai/code) that streamline feature development with GitHub integration.
+2. **Plushie Generation**
+   - `POST /api/plushies/generate` - Generate plushie from image
+   - Request: `{ image: File, style: string, size: string }`
+   - Response: `{ id, originalImage, generatedImage, style, size, createdAt }`
 
-### Available Commands
+3. **Gallery Management**
+   - `GET /api/plushies` - Get user's plushies
+   - `DELETE /api/plushies/:id` - Delete a plushie
+   - `PATCH /api/plushies/:id/favorite` - Toggle favorite status
 
-| Command | Description |
-|---------|-------------|
-| `/create-feature` | Create a new feature specification with requirements and implementation plan |
-| `/publish-to-github` | Publish a feature to GitHub Issues and Projects |
-| `/continue-feature` | Continue implementing the next task for a GitHub-published feature |
-| `/checkpoint` | Create a comprehensive checkpoint commit with all changes |
+4. **Credit System**
+   - `GET /api/credits` - Get user's credit balance
+   - `POST /api/credits/purchase` - Purchase credits
+   - `POST /api/credits/deduct` - Deduct credit for generation
 
-### Prerequisites
+### Components Requiring API Integration
 
-Before using the GitHub-integrated commands:
+1. **Dashboard** (`src/app/dashboard/page.tsx`)
+   - Replace `mockGeneratePlushie` with API call
+   - Update credit balance after generation
+   - Handle API errors gracefully
 
-1. **GitHub CLI**: Install and authenticate the GitHub CLI
-   ```bash
-   # Install (if needed)
-   brew install gh  # macOS
-   # or see https://cli.github.com/
+2. **Gallery** (`src/app/gallery/page.tsx`)
+   - Replace `use-plushie-gallery` hook with API calls
+   - Remove localStorage persistence
+   - Add loading states for API requests
 
-   # Authenticate
-   gh auth login
+3. **Profile** (`src/app/profile/page.tsx`)
+   - Replace mock user data with real user data
+   - Fetch credit balance from API
+   - Update recent activity from backend
 
-   # Add project scopes (required for /publish-to-github)
-   gh auth refresh -s project,read:project
-   ```
+4. **Site Header** (`src/components/site-header.tsx`)
+   - Replace mock user with real session
+   - Add real authentication flow
+   - Update user profile dropdown
 
-2. **Claude Code**: Install Claude Code CLI from [claude.ai/code](https://claude.ai/code)
+### Credit System Requirements
 
-### Typical Workflow
+1. **Credit Deduction**
+   - Deduct 1 credit per plushie generation
+   - Check balance before generation
+   - Show error if insufficient credits
 
-#### 1. Plan Your Feature
+2. **Credit Purchase**
+   - Integrate with payment processor (Stripe, etc.)
+   - Update balance after successful payment
+   - Send confirmation email
 
-Start a conversation with Claude Code and describe the feature you want to build:
+3. **Credit Display**
+   - Show current balance in header
+   - Update balance in real-time
+   - Display in profile page
 
-```
-You: I want to add a user preferences page where users can update their display name,
-     email notifications, and theme preferences.
-```
+### Database Schema (Future)
 
-#### 2. Create Feature Specification
+```sql
+-- Users table
+CREATE TABLE users (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  email VARCHAR(255) UNIQUE NOT NULL,
+  name VARCHAR(255),
+  avatar_url TEXT,
+  credits INTEGER DEFAULT 0,
+  created_at TIMESTAMP DEFAULT NOW()
+);
 
-Once you've discussed the requirements, run:
+-- Plushies table
+CREATE TABLE plushies (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id UUID REFERENCES users(id) ON DELETE CASCADE,
+  original_image_url TEXT NOT NULL,
+  generated_image_url TEXT NOT NULL,
+  style VARCHAR(50) NOT NULL,
+  size VARCHAR(50) NOT NULL,
+  is_favorite BOOLEAN DEFAULT FALSE,
+  created_at TIMESTAMP DEFAULT NOW()
+);
 
-```
-/create-feature
-```
-
-This creates a spec folder at `specs/{feature-name}/` containing:
-- `requirements.md` - What the feature does and acceptance criteria
-- `implementation-plan.md` - Phased tasks with checkboxes
-
-#### 3. Publish to GitHub
-
-Publish the feature to GitHub for tracking:
-
-```
-/publish-to-github
-```
-
-This creates:
-- An **Epic issue** with full requirements
-- **Task issues** for each implementation step
-- A **GitHub Project** to track progress
-- **Labels** for organization
-- A `github.md` file with all references
-
-#### 4. Implement Tasks
-
-Start implementing tasks one at a time:
-
-```
-/continue-feature
-```
-
-This command:
-1. Finds the next unblocked task (respecting dependencies)
-2. Updates the GitHub Project status to "In Progress"
-3. Implements the task following project conventions
-4. Runs lint and typecheck
-5. Commits with `closes #{issue-number}`
-6. Updates the issue with implementation details
-7. Moves the task to "Done" on the Project board
-
-Repeat `/continue-feature` for each task, or let Claude continue automatically.
-
-#### 5. Create Checkpoints
-
-At any point, create a detailed checkpoint commit:
-
-```
-/checkpoint
-```
-
-This stages all changes and creates a well-formatted commit with:
-- Clear summary line
-- Detailed description of changes
-- Co-author attribution
-
-### Example Session
-
-```bash
-# Start Claude Code in your project
-claude
-
-# Discuss feature requirements
-You: I need to add API rate limiting to protect our endpoints...
-
-# Claude helps plan, then you run:
-/create-feature
-
-# Review the spec, then publish:
-/publish-to-github
-
-# Implement task by task:
-/continue-feature
-# ... Claude implements, commits, updates GitHub ...
-
-/continue-feature
-# ... next task ...
-
-# When done, push to GitHub:
-git push
+-- Credit transactions table
+CREATE TABLE credit_transactions (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id UUID REFERENCES users(id) ON DELETE CASCADE,
+  amount INTEGER NOT NULL,
+  type VARCHAR(50) NOT NULL, -- 'purchase' or 'deduct'
+  description TEXT,
+  created_at TIMESTAMP DEFAULT NOW()
+);
 ```
 
-### Without GitHub Integration
+## 🧪 Testing
 
-If you prefer not to use GitHub, you can still use `/create-feature` to create specs, then manually work through the `implementation-plan.md` checkboxes. The `/continue-feature` command also supports offline mode, tracking progress directly in the markdown file.
+The implementation has been tested for:
 
-### Command Files Location
+- ✅ Visual testing in light and dark modes
+- ✅ Responsive design on mobile, tablet, and desktop
+- ✅ All interactions (upload, generate, gallery actions)
+- ✅ Navigation across all pages
+- ✅ Data persistence in localStorage
+- ✅ Mock user state display
+- ✅ Accessibility (keyboard navigation, screen reader, color contrast)
+- ✅ Code quality (linting, type checking)
+- ✅ Cross-browser compatibility (Chrome, Firefox, Edge)
 
-Commands are defined in `.claude/commands/`:
-```
-.claude/commands/
-├── checkpoint.md
-├── continue-feature.md
-├── create-feature.md
-└── publish-to-github.md
-```
+## 📝 Known Issues & Limitations
 
-You can customize these commands or add new ones following the [Claude Code documentation](https://docs.anthropic.com/en/docs/claude-code).
+### Current Limitations (UI-Only Implementation)
+
+1. **No Real AI Generation**
+   - Plushie generation is mocked with 3-5 second delays
+   - Returns random sample images instead of AI-generated content
+   - Requires backend AI integration for actual generation
+
+2. **No Real Authentication**
+   - User is always "logged in" with mock data
+   - No sign-in/sign-up flow
+   - No session management
+   - Requires Better Auth integration
+
+3. **No Payment Processing**
+   - Pricing page displays credit packages
+   - No actual payment processing
+   - No credit purchase flow
+   - Requires Stripe or similar integration
+
+4. **No Credit Tracking**
+   - Mock credits (50) displayed in UI
+   - No actual credit deduction
+   - No credit balance updates
+   - Requires backend credit system
+
+5. **localStorage Only**
+   - Gallery data persists in browser localStorage
+   - Not synced across devices
+   - Lost if browser cache is cleared
+   - Requires database integration
+
+6. **No Real Image Storage**
+   - Images are served from public directory
+   - No actual file upload to server
+   - No cloud storage integration
+   - Requires Vercel Blob or similar
+
+### Future Enhancements
+
+1. **AI Generation Integration**
+   - Connect to AI image generation API
+   - Support custom style training
+   - Add generation queue system
+   - Implement generation history
+
+2. **Advanced Gallery Features**
+   - Bulk actions (delete, download)
+   - Collections/folders
+   - Shareable public galleries
+   - Social media integration
+
+3. **User Experience**
+   - Generation progress with real updates
+   - Generation history with re-download
+   - Style recommendations based on image
+   - Batch generation support
+
+4. **Monetization**
+   - Subscription plans
+   - Free trial with limited credits
+   - Referral program
+   - Enterprise features
 
 ## 🤝 Contributing
 
@@ -423,7 +486,7 @@ You can customize these commands or add new ones following the [Claude Code docu
 4. Push to the branch (`git push origin feature/amazing-feature`)
 5. Open a Pull Request
 
-## 📝 License
+## 📄 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
@@ -431,10 +494,17 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 If you encounter any issues:
 
-1. Check the [Issues](https://github.com/leonvanzyl/agentic-coding-starter-kit/issues) section
-2. Review the documentation above
+1. Review the documentation above
+2. Check the [FAQ page](/faq) in the application
 3. Create a new issue with detailed information about your problem
+
+## 🎉 Acknowledgments
+
+- Built with [Next.js](https://nextjs.org/)
+- UI components from [shadcn/ui](https://ui.shadcn.com/)
+- Icons from [Lucide](https://lucide.dev/)
+- Inspired by the love for cute and adorable things
 
 ---
 
-**Happy coding! 🚀**
+**Happy plushie making! 🧸✨**
